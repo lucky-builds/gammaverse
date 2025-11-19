@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import requests
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -36,6 +37,9 @@ APPLIED_JOBS_API = (
     "page={page}&status=&ref=menu&referenceText=menu&refPool=%7B%22ref%22:%22menu%22%7D"
 )
 DEFAULT_OUTPUT = "iimjobs_applied_jobs.csv"
+
+# Load environment variables from .env file if present
+load_dotenv()
 
 STATUS_LABELS = {
     0: "APPLIED/SENT",

@@ -1,12 +1,16 @@
 import shutil
 import tempfile
+import os
 from pathlib import Path
 
 import streamlit as st
+from dotenv import load_dotenv
 
 import export_iimjobs_applied as iimjobs_exporter
 import remove_gamma_logo as pptx_cleaner
 import remove_gamma_logo_pdf as pdf_cleaner
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent
 TOOL_WATERMARK = "Watermark remover"
@@ -115,8 +119,8 @@ def render_iimjobs_tool() -> None:
     st.title("📄 iimjobs Applied Jobs Export")
     st.write("Enter your iimjobs credentials to export applied jobs as CSV.")
 
-    email = st.text_input("Email")
-    password = st.text_input("Password", type="password")
+    email = st.text_input("Email", value=os.getenv("IIMJOBS_EMAIL", ""))
+    password = st.text_input("Password", type="password", value=os.getenv("IIMJOBS_PASSWORD", ""))
     headless = st.checkbox("Run browser headless", value=True)
     output_name = st.text_input("Output filename", value=IIMJOBS_DEFAULT_OUTPUT)
 
