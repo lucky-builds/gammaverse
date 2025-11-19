@@ -9,6 +9,7 @@ Usage:
 from __future__ import annotations
 
 import os
+import shutil
 import sys
 import tempfile
 from pathlib import Path
@@ -177,7 +178,9 @@ def process_pdf(path: Path) -> int:
     try:
         with open(tmp_path, "wb") as fh:
             writer.write(fh)
-        os.replace(tmp_path, path)
+        with open(tmp_path, "wb") as fh:
+            writer.write(fh)
+        shutil.move(str(tmp_path), str(path))
     finally:
         if tmp_path.exists():
             tmp_path.unlink(missing_ok=True)

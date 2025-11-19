@@ -9,6 +9,7 @@ Usage:
 from __future__ import annotations
 
 import os
+import shutil
 import sys
 import tempfile
 import zipfile
@@ -123,7 +124,9 @@ def write_archive(
         with zipfile.ZipFile(tmp_path, "w") as zout:
             for name, info in infos.items():
                 zout.writestr(info, contents[name])
-        os.replace(tmp_path, path)
+            for name, info in infos.items():
+                zout.writestr(info, contents[name])
+        shutil.move(str(tmp_path), str(path))
     finally:
         if tmp_path.exists():
             tmp_path.unlink(missing_ok=True)
