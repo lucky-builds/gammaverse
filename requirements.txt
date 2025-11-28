@@ -3,3 +3,5 @@ requests
 streamlit
 pypdf
 python-dotenv
+beautifulsoup4
+Pillow
